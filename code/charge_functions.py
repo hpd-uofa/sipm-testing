@@ -23,3 +23,25 @@ def wave(fname):
          
     plt.grid()
     
+    
+def waveform(data_dict, n):
+    plt.figure(figsize=(15,7), facecolor='w')
+
+    for i in range(min(n,len(data_dict['Samples']))):
+        plt.plot(data_dict['Samples'][i])
+         
+    plt.grid()
+    plt.show()
+
+def integrate_waveform(wave):
+    shifted_waveform = wave-250
+    mask = (shifted_waveform<0)
+    
+    return -sum(shifted_waveform[mask])
+
+def get_charge_array(samples):
+    q = np.zeros(len(samples))
+    for i in range(len(samples)):
+        q[i] = integrate_waveform(samples[i])
+    return q
+    
